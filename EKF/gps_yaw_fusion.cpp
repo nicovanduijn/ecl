@@ -45,6 +45,8 @@
 #include <mathlib/mathlib.h>
 #include <cstdlib>
 
+namespace estimator {
+
 void Ekf::fuseGpsAntYaw()
 {
 	// assign intermediate state variables
@@ -425,3 +427,4 @@ bool Ekf::resetGpsAntYaw()
 
 	return false;
 }
+} // namespace estimator

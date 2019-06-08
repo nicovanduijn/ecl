@@ -49,7 +49,7 @@
 #include <matrix/math.hpp>
 #include <mathlib/mathlib.h>
 
-using namespace estimator;
+namespace estimator {
 
 class EstimatorInterface
 {
@@ -175,9 +175,6 @@ public:
 	// set delta angle imu data
 	void setIMUData(const imuSample &imu_sample);
 
-	// legacy interface for compatibility (2018-09-14)
-	void setIMUData(uint64_t time_usec, uint64_t delta_ang_dt, uint64_t delta_vel_dt, float (&delta_ang)[3], float (&delta_vel)[3]);
-
 	// set magnetometer data
 	void setMagData(uint64_t time_usec, float (&data)[3]);
 
@@ -284,7 +281,10 @@ public:
 		}
 	}
 
-	const matrix::Quatf &get_quaternion() const { return _output_new.quat_nominal; }
+	matrix::Quatf get_quaternion() const
+	{
+		return matrix::Quatf{_output_new.quat_nominal(0), _output_new.quat_nominal(1), _output_new.quat_nominal(2), _output_new.quat_nominal(3)};
+	}
 
 	// return the quaternion defining the rotation from the EKF to the External Vision reference frame
 	virtual void get_ekf2ev_quaternion(float *quat) = 0;
@@ -406,7 +406,7 @@ public:
 	void print_status();
 
 	static constexpr unsigned FILTER_UPDATE_PERIOD_MS{8};	// ekf prediction period in milliseconds - this should ideally be an integer multiple of the IMU time delta
-	static constexpr float FILTER_UPDATE_PERIOD_S{FILTER_UPDATE_PERIOD_MS * 0.001f};
+	static constexpr ecl_float_t FILTER_UPDATE_PERIOD_S{FILTER_UPDATE_PERIOD_MS * 0.001f};
 
 protected:
 
@@ -571,3 +571,5 @@ protected:
 	Matrix3f quat_to_invrotmat(const Quatf &quat);
 
 };
+
+} // namespace estimator

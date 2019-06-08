@@ -44,6 +44,8 @@
 #include <ecl.h>
 #include <mathlib/mathlib.h>
 
+namespace estimator {
+
 void Ekf::fuseMag()
 {
 	// assign intermediate variables
@@ -983,3 +985,4 @@ void Ekf::limitDeclination()
 		_state.mag_I(1) = h_field * sinf(decl_min);
 	}
 }
+} // namespace estimator

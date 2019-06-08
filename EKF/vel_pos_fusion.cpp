@@ -45,6 +45,8 @@
 #include <ecl.h>
 #include <mathlib/mathlib.h>
 
+namespace estimator {
+
 void Ekf::fuseVelPosHeight()
 {
 	bool fuse_map[6] = {}; // map of booleans true when [VN,VE,VD,PN,PE,PD] observations are available
@@ -316,3 +318,4 @@ void Ekf::fuseVelPosHeight()
 		}
 	}
 }
+} // namespace estimator

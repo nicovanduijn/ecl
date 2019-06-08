@@ -39,9 +39,11 @@
  *
  */
 
-#include "../ecl.h"
+#include <ecl.h>
 #include "ekf.h"
 #include <mathlib/mathlib.h>
+
+namespace estimator {
 
 void Ekf::controlFusionModes()
 {
@@ -1695,3 +1697,5 @@ void Ekf::controlAuxVelFusion()
 		fuseVelPosHeight();
 	}
 }
+
+} // namespace estimator

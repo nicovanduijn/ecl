@@ -43,6 +43,8 @@
 #include <ecl.h>
 #include <mathlib/mathlib.h>
 
+namespace estimator {
+
 bool Ekf::initHagl()
 {
 	// get most recent range measurement from buffer
@@ -337,3 +339,4 @@ void Ekf::checkRangeDataContinuity()
 		_range_data_continuous = false;
 	}
 }
+} // namespace estimator

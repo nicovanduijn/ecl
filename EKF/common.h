@@ -31,6 +31,8 @@
  *
  ****************************************************************************/
 
+#pragma once
+
 /**
  * @file common.h
  * Definition of base class for attitude estimators
@@ -45,13 +47,14 @@
 namespace estimator
 {
 
-using matrix::AxisAnglef;
-using matrix::Dcmf;
-using matrix::Eulerf;
-using matrix::Matrix3f;
-using matrix::Quatf;
-using matrix::Vector2f;
-using matrix::Vector3f;
+using AxisAnglef = matrix::AxisAngle<ecl_float_t>;
+using Dcmf = matrix::Dcm<ecl_float_t>;
+using Eulerf = matrix::Euler<ecl_float_t>;
+using Matrix3f = matrix::Matrix<ecl_float_t, 3, 3>;
+using Quatf = matrix::Quaternion<ecl_float_t>;
+using Vector2f = matrix::Vector2<ecl_float_t>;
+using Vector3f = matrix::Vector3<ecl_float_t>;
+
 using matrix::wrap_pi;
 
 struct gps_message {
@@ -104,8 +107,8 @@ struct outputVert {
 struct imuSample {
 	Vector3f    delta_ang;		///< delta angle in body frame (integrated gyro measurements) (rad)
 	Vector3f    delta_vel;		///< delta velocity in body frame (integrated accelerometer measurements) (m/sec)
-	float       delta_ang_dt;	///< delta angle integration period (sec)
-	float       delta_vel_dt;	///< delta velocity integration period (sec)
+	ecl_float_t	delta_ang_dt;	///< delta angle integration period (sec)
+	ecl_float_t	delta_vel_dt;	///< delta velocity integration period (sec)
 	uint64_t    time_us;		///< timestamp of the measurement (uSec)
 };
 
