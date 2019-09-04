@@ -85,7 +85,7 @@ void Ekf::fuseOptFlow()
 	Vector3f vel_body = earth_to_body * vel_rel_earth;
 
 	// height above ground of the IMU
-	float heightAboveGndEst = _terrain_vpos - _state.pos(2);
+	float heightAboveGndEst = _state.pos(2) > gndclearance ? _terrain_vpos - _state.pos(2) : _state.pos(2);
 
 	// calculate the sensor position relative to the IMU in earth frame
 	Vector3f pos_offset_earth = _R_to_earth * pos_offset_body;
